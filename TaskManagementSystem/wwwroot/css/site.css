@@ -1,13 +1,3 @@
-:root {
-  --bg: #f4f6f8;
-  --surface: #ffffff;
-  --surface-muted: #f8f9fb;
-  --border-soft: #dfe3e8;
-  --text-main: #1f2933;
-  --text-muted: #5b6875;
-  --accent-soft: #5f6f82;
-}
-
 html {
   font-size: 14px;
   position: relative;
@@ -22,53 +12,32 @@ html {
 
 body {
   margin-bottom: 60px;
-  background-color: var(--bg);
-  color: var(--text-main);
+  background-color: #f7f8fa;
 }
 
-.container {
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: 0.5rem;
-  padding: 1rem 1.25rem;
+main {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
 }
 
-.navbar {
-  background-color: var(--surface-muted) !important;
-  border-color: var(--border-soft) !important;
-}
-
+.navbar,
 .footer {
-  background-color: var(--surface-muted);
-  border-color: var(--border-soft) !important;
+  background-color: #f9fafb;
 }
 
-.text-muted,
-.footer,
-.navbar-text {
-  color: var(--text-muted) !important;
+.row .col-md-5 form,
+.row .col-md-6 form {
+  max-width: 34rem;
 }
 
-.nav-link {
-  transition: color 0.15s ease-in-out;
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: middle;
 }
 
-.nav-link:hover {
-  color: var(--accent-soft) !important;
-}
-
-.btn {
-  border-radius: 0.375rem;
-}
-
-.btn-primary {
-  background-color: #6c7b8b;
-  border-color: #6c7b8b;
-}
-
-.btn-primary:hover {
-  background-color: #5f6f82;
-  border-color: #5f6f82;
+.table td:last-child {
+  white-space: nowrap;
 }
 
 .btn:focus,
@@ -77,5 +46,28 @@ body {
 .form-control:focus,
 .form-check-input:focus,
 .form-select:focus {
-  box-shadow: 0 0 0 0.1rem var(--surface), 0 0 0 0.25rem rgba(95, 111, 130, 0.35);
+  box-shadow: 0 0 0 0.1rem #fff, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.priority-label {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.priority-low {
+  background-color: #e9f7ef;
+  color: #1f7a44;
+}
+
+.priority-medium {
+  background-color: #fff4e5;
+  color: #9a6700;
+}
+
+.priority-high {
+  background-color: #fdecec;
+  color: #b42318;
 }
