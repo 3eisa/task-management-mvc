@@ -1,0 +1,46 @@
+@model TaskManagementSystem.ViewModels.TaskFormViewModel
+@using TaskManagementSystem.Models
+@{
+    ViewData["Title"] = "Create Task";
+}
+
+<h2 class="mb-4">Create Task</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Priority" class="form-label"></label>
+                <select asp-for="Priority" asp-items="Html.GetEnumSelectList<Priority>()" class="form-select">
+                    <option value="">-- Select Priority --</option>
+                </select>
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="UserId" class="form-label">Assigned User</label>
+                <select asp-for="UserId" asp-items="Model.UserOptions" class="form-select">
+                    <option value="">-- Select User --</option>
+                </select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary me-2">Create</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
