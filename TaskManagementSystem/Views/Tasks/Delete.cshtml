@@ -15,7 +15,11 @@
     <dd class="col-sm-9">@Model.Description</dd>
 
     <dt class="col-sm-3">Priority</dt>
-    <dd class="col-sm-9">@Model.Priority</dd>
+    <dd class="col-sm-9">
+        <span class="priority-label priority-@Model.Priority.ToString().ToLowerInvariant()">
+            @Model.Priority
+        </span>
+    </dd>
 
     <dt class="col-sm-3">Assigned User</dt>
     <dd class="col-sm-9">@Model.User.Name</dd>
