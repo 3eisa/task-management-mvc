@@ -14,8 +14,34 @@ public class TasksController : BaseController
     public TasksController(AppDbContext db) => _db = db;
 
     // GET /Tasks
-    public IActionResult Index() =>
-        View(_db.TaskItems.Include(t => t.User).OrderBy(t => t.CreatedAt).ToList());
+    public IActionResult Index(string? sortBy)
+    {
+        var selectedSort = (sortBy ?? "date_desc").ToLowerInvariant();
+        IQueryable<TaskItem> query = _db.TaskItems.Include(t => t.User);
+
+        switch (selectedSort)
+        {
+            case "date_asc":
+                query = query.OrderBy(t => t.CreatedAt);
+                break;
+            case "priority_asc":
+                query = query.OrderBy(t => t.Priority).ThenByDescending(t => t.CreatedAt);
+                break;
+            case "priority_desc":
+                query = query.OrderByDescending(t => t.Priority).ThenByDescending(t => t.CreatedAt);
+                break;
+            case "date_desc":
+                query = query.OrderByDescending(t => t.CreatedAt);
+                break;
+            default:
+                selectedSort = "date_desc";
+                query = query.OrderByDescending(t => t.CreatedAt);
+                break;
+        }
+
+        ViewData["SortBy"] = selectedSort;
+        return View(query.ToList());
+    }
 
     // GET /Tasks/Create
     public IActionResult Create() => View(BuildForm(new TaskFormViewModel()));
