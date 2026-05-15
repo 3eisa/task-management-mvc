@@ -1,5 +1,17 @@
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --surface-muted: #f8f9fb;
+  --border-soft: #dfe3e8;
+  --text-main: #1f2933;
+  --text-muted: #5b6875;
+  --accent-soft: #5f6f82;
+}
+
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,15 +20,62 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
   margin-bottom: 60px;
+  background-color: var(--bg);
+  color: var(--text-main);
+}
+
+.container {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.navbar {
+  background-color: var(--surface-muted) !important;
+  border-color: var(--border-soft) !important;
+}
+
+.footer {
+  background-color: var(--surface-muted);
+  border-color: var(--border-soft) !important;
+}
+
+.text-muted,
+.footer,
+.navbar-text {
+  color: var(--text-muted) !important;
+}
+
+.nav-link {
+  transition: color 0.15s ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--accent-soft) !important;
+}
+
+.btn {
+  border-radius: 0.375rem;
+}
+
+.btn-primary {
+  background-color: #6c7b8b;
+  border-color: #6c7b8b;
+}
+
+.btn-primary:hover {
+  background-color: #5f6f82;
+  border-color: #5f6f82;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 0.1rem var(--surface), 0 0 0 0.25rem rgba(95, 111, 130, 0.35);
 }
