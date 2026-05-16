@@ -8,6 +8,8 @@ namespace TaskManagementSystem.Controllers;
 //        public class TasksController : BaseController { ... }
 public abstract class BaseController : Controller
 {
+    protected int? CurrentAppUserId => HttpContext.Session.GetInt32("AppUserId");
+
     public override void OnActionExecuting(ActionExecutingContext context)
     {
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))

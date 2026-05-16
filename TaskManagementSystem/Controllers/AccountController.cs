@@ -49,6 +49,7 @@ public class AccountController : Controller
         }
 
         HttpContext.Session.SetString("Username", user.Username);
+        HttpContext.Session.SetInt32("AppUserId", user.Id);
         return RedirectToAction("Index", "Home");
     }
 
