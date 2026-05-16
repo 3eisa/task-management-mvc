@@ -17,7 +17,9 @@ public class TasksController : BaseController
     public IActionResult Index(string? sortBy)
     {
         var selectedSort = (sortBy ?? "date_desc").ToLowerInvariant();
-        IQueryable<TaskItem> query = _db.TaskItems.Include(t => t.User);
+        IQueryable<TaskItem> query = _db.TaskItems
+            .Include(t => t.User)
+            .Include(t => t.CreatedBy);
 
         switch (selectedSort)
         {
@@ -40,6 +42,7 @@ public class TasksController : BaseController
         }
 
         ViewData["SortBy"] = selectedSort;
+        ViewData["CurrentAppUserId"] = CurrentAppUserId;
         return View(query.ToList());
     }
 
@@ -53,11 +56,12 @@ public class TasksController : BaseController
         if (!ModelState.IsValid) return View(BuildForm(model));
         _db.TaskItems.Add(new TaskItem
         {
-            Title       = model.Title,
-            Description = model.Description,
-            Priority    = model.Priority,
-            UserId      = model.UserId,
-            CreatedAt   = DateTime.Now
+            Title              = model.Title,
+            Description        = model.Description,
+            Priority           = model.Priority,
+            UserId             = model.UserId,
+            CreatedAt          = DateTime.Now,
+            CreatedByAppUserId = CurrentAppUserId
         });
         _db.SaveChanges();
         return RedirectToAction(nameof(Index));
@@ -68,6 +72,7 @@ public class TasksController : BaseController
     {
         var task = _db.TaskItems.Find(id);
         if (task is null) return NotFound();
+        if (task.CreatedByAppUserId != CurrentAppUserId) return RedirectToAction(nameof(Index));
         return View(BuildForm(new TaskFormViewModel
         {
             Id          = task.Id,
@@ -86,6 +91,7 @@ public class TasksController : BaseController
         if (!ModelState.IsValid) return View(BuildForm(model));
         var task = _db.TaskItems.Find(id);
         if (task is null) return NotFound();
+        if (task.CreatedByAppUserId != CurrentAppUserId) return RedirectToAction(nameof(Index));
         task.Title       = model.Title;
         task.Description = model.Description;
         task.Priority    = model.Priority;
@@ -99,6 +105,7 @@ public class TasksController : BaseController
     {
         var task = _db.TaskItems.Include(t => t.User).FirstOrDefault(t => t.Id == id);
         if (task is null) return NotFound();
+        if (task.CreatedByAppUserId != CurrentAppUserId) return RedirectToAction(nameof(Index));
         return View(task);
     }
 
@@ -108,6 +115,7 @@ public class TasksController : BaseController
     {
         var task = _db.TaskItems.Find(id);
         if (task is null) return NotFound();
+        if (task.CreatedByAppUserId != CurrentAppUserId) return RedirectToAction(nameof(Index));
         _db.TaskItems.Remove(task);
         _db.SaveChanges();
         return RedirectToAction(nameof(Index));

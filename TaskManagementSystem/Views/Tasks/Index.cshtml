@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Tasks";
     var selectedSort = (ViewData["SortBy"] as string) ?? "date_desc";
+    var currentAppUserId = ViewData["CurrentAppUserId"] as int?;
 }
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
@@ -62,6 +63,7 @@ else
                 <th>Description</th>
                 <th>Priority</th>
                 <th>Assigned User</th>
+                <th>Created By</th>
                 <th>Created At</th>
                 <th>Actions</th>
             </tr>
@@ -78,10 +80,18 @@ else
                         </span>
                     </td>
                     <td>@item.User.Name</td>
+                    <td>@(item.CreatedBy?.Username ?? "-")</td>
                     <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                        @if (item.CreatedByAppUserId != null && item.CreatedByAppUserId == currentAppUserId)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">-</span>
+                        }
                     </td>
                 </tr>
             }
