@@ -85,12 +85,12 @@ Implemented in `TasksController`, `TaskFormViewModel`, and `Views/Tasks/`. All p
 
 `TasksController.Index(string? sortBy)` accepts a `sortBy` query parameter:
 
-| Value           | Result                                                        |
-| --------------- | ------------------------------------------------------------- |
-| `date_desc`     | Newest first (**default** when `sortBy` is null or unknown)   |
-| `date_asc`      | Oldest first                                                  |
-| `priority_asc`  | Priority Low → Medium → High                                  |
-| `priority_desc` | Priority High → Medium → Low                                  |
+| Value           | Result                                                      |
+| --------------- | ----------------------------------------------------------- |
+| `date_desc`     | Newest first (**default** when `sortBy` is null or unknown) |
+| `date_asc`      | Oldest first                                                |
+| `priority_asc`  | Priority Low → Medium → High                                |
+| `priority_desc` | Priority High → Medium → Low                                |
 
 The Tasks index page has a small GET form with a `<select>` named `sortBy`. The currently selected option is preserved after submitting using `ViewData["SortBy"]`.
 
@@ -164,6 +164,7 @@ Screenshots of the running application will be added here for the final report:
 - Delete confirmation page
 
 > Place screenshot files under `docs/screenshots/` and reference them here, for example:
+> As seen in screenshots the url is hosted and served via cloudlflare
 >
 > ```markdown
 > ![Tasks list](docs/screenshots/tasks-list.png)
